@@ -31,7 +31,7 @@ ALLOWED_HOSTS.extend(
     filter(
         None,
         # Insira o IP da sua rede aqui
-        os.environ.get('ALLOWED_HOSTS', '192.168.1.100').split(','),
+        os.environ.get('ALLOWED_HOSTS', '').split(','),
     )
 )
 
