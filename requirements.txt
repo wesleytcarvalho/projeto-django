@@ -1,0 +1,21 @@
+# Se quiser sabe o que cada pacote faz acesse: https://pypi.org
+
+# Instalar Client prometheus
+django-prometheus==2.3.1
+prometheus_client==0.20.0
+
+# Django e Python
+djangorestframework==3.14.0
+Django==4.1.7
+Pillow==9.4.0
+
+# Ler Json
+jq==1.6.0
+
+# Conexão Postgre
+psycopg2==2.9.5
+
+# Web
+pytz==2024.1
+gunicorn==20.1.0
+asgiref==3.7.2

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  selector:
+    matchLabels:
+      app: django
+      tier: app
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: django
+        tier: app
+    spec:
+      volumes:
+        - name: django-app-data
+          persistentVolumeClaim:
+            claimName: django-app-pvc
+      containers:
+        - image: django-app:latest
+          imagePullPolicy: Never
+          name: app
+          ports:
+            - containerPort: 8080
+              name: app
+          volumeMounts:
+            - name: django-app-data
+              mountPath: /vol/web
+          env:
+            - name: DB_HOST
+              value: django-postgres
+            - name: DB_NAME
+              value: djangodb
+            - name: DB_USER
+              value: djangouser
+            - name: ALLOWED_HOSTS
+              value: '127.0.0.1,localhost'
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: password
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django
+                  key: secret
